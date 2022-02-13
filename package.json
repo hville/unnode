@@ -1,0 +1,22 @@
+{
+  "name": "pack-module",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "bundle imported module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "hv",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@rollup/plugin-auto-install": "^2.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-virtual": "^2.0.3",
+    "rollup": "^2.51.2"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.2",
+    "assert-op": "^0.8.0"
+  }
+}

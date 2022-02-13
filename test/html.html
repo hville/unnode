@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang=en>
+<head>
+	<title>schem.ist</title>
+	<script type=module src="./_src/data-lang.js"></script>
+</head>
+<script type=module src="/npm/@hugov.shorter-string.js"></script>
+<script>
+import x from '/npm/@hugov/shorter-string.js'
+//import '/npmx/@hugov/z@2.2.0/z.js'
+//import '/npmx/@hugov.z@2.2.0.z.min.js'
+
+const jsdelivr = `
+// load any project hosted on npm
+https://cdn.jsdelivr.net/npm/package@version/file
+
+// load jQuery v3.2.1
+https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js
+
+// use a version range instead of a specific version
+https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js
+https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js
+
+// omit the version completely to get the latest one you should NOT use this in production
+https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js
+
+// add ".min" to any JS/CSS file to get a minified version if one doesn't exist, we'll generate it for you
+https://cdn.jsdelivr.net/npm/jquery@3.2.1/src/core.min.js
+
+// omit the file path to get the default file
+https://cdn.jsdelivr.net/npm/jquery@3.2
+
+// add / at the end to get a directory listing
+https://cdn.jsdelivr.net/npm/jquery/
+`
+
+const skypack = `
+Default
+https://cdn.skypack.dev/package-name
+https://cdn.skypack.dev/@scope/package-name
+
+Package Version
+https://cdn.skypack.dev/preact@10
+https://cdn.skypack.dev/preact@^10.5.0
+https://cdn.skypack.dev/preact@10.5.5
+
+Package Export
+https://cdn.skypack.dev/preact/hooks
+https://cdn.skypack.dev/preact@^10.5.0/hooks
+
+Minified (?min)
+https://cdn.skypack.dev/preact?min
+
+Deno (?dts)
+https://cdn.skypack.dev/fast-xml-parser?dts
+`
+
+const unkgp = `
+Using a fixed version:
+
+unpkg.com/react@16.7.0/umd/react.production.min.js
+unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js
+You may also use a semver range or a tag instead of a fixed version number, or omit the version/tag entirely to use the latest tag.
+
+unpkg.com/react@^16/umd/react.production.min.js
+unpkg.com/react/umd/react.production.min.js
+If you omit the file path (i.e. use a “bare” URL), unpkg will serve the file specified by the unpkg field in package.json, or fall back to main.
+
+unpkg.com/jquery
+unpkg.com/three
+Append a / at the end of a URL to view a listing of all the files in a package.
+
+unpkg.com/react/
+unpkg.com/react-router/
+`
+</script>
+
+
+
