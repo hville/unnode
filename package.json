@@ -1,22 +1,22 @@
 {
-  "name": "pack-module",
+  "name": "@hugov/unnode",
   "type": "module",
   "version": "0.0.1",
-  "description": "bundle imported module",
+  "description": "bundle imported node_modules",
   "main": "index.js",
+  "bin": {
+    "unnode": "./cli.js"
+  },
   "scripts": {
-    "test": "node test.js"
+    "test": "node test/re.tst.js"
   },
   "author": "hv",
   "license": "UNLICENSED",
   "dependencies": {
-    "@rollup/plugin-auto-install": "^2.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@rollup/plugin-virtual": "^2.0.3",
-    "rollup": "^2.51.2"
+    "esbuild": "^0.14.21"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2",
-    "assert-op": "^0.8.0"
+    "@types/node": "^17.0.18",
+    "assert-op": "^1.2.0"
   }
 }

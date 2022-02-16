@@ -1,21 +1,21 @@
 import { readFileSync } from 'fs'
+import Path from 'path'
 import withFiles from './each-file.js'
-import jsRE from './re.js'
+import RE from './re.js'
 
-const extRE = /.(?:html|js)$/
-/*
-	@n/n/d/f.js  ==> @n/n   d/f.js   //as-is
-	@n.n.d.f.js  ==> @n/n   d/f.js   //as-is
-
-	@n/n.js      ==> @n     n.js     //browser.js
-	@n/n.js      ==> @n     n.js     //browser.js
-*/
-export default function(root) {
-	const map = {}
-	withFiles(root, name => {
-		if (extRE.test(name))
-			for (const match of readFileSync(name, 'utf8')?.matchAll(jsRE))
-				map[match[0]] = match.groups
+export default function(root, devFolder) {
+	const found = {},
+				pathRE = RE(devFolder)
+	withFiles(root, origin => {
+		for (const match of readFileSync(origin, 'utf8')?.matchAll(pathRE)) {
+			console.log(origin, match[0])
+			const path = match[0],
+						{module, subpath, base} = match.groups,
+						tgt = base[0] === '/' ? Path.resolve(root, devFolder) : Path.resolve(Path.dirname(origin), base, devFolder),
+						src = subpath[0]==='.' ? module : module+subpath
+			if (!found[tgt]) found[tgt] = {}
+			found[tgt][src.replace(/\.[^./]+$/, '')] = src
+		}
 	})
-	return map
+	return found
 }

@@ -1,38 +1,24 @@
 import getImports from './src/get-imports.js'
-import bundle from './src/bundle.js'
+import esbuild from 'esbuild'
 
-export default function(cwd=process.cwd()) {
-	const imp = getImports(cwd)
-	console.log(cwd)
-	console.log(imp)
-	for (const f of Object.keys(imp)) {
-		const grp = imp[f],
-					input = `${ grp.scope ? grp.scope+'/' : '' }${ grp.module }${ grp.file ? grp.file+'.js' : ''}`
-		console.log('from', input, 'to', f)
-		bundle(input, f)
-	}
-}
-
-/*
-let esbuild = require('esbuild')
-let result1 = esbuild.transformSync(code, options)
-let result2 = esbuild.buildSync(options)
-
-require('esbuild').transformSync('let x: number = 1', {
-	format: 'esm',
-	minify: true,
-  loader: 'ts',
-})
-{
-  code: 'let x = 1;\n',
-  map: '',
-  warnings: []
-}
-require('esbuild').buildSync({
-  entryPoints: ['in.ts'],
+const defaults = {
 	bundle: true,
-  outfile: 'out.js',
-})
-{ errors: [], warnings: [] }
+	//minify: true,
+	//sourcemap: true,
+	format: 'esm',
+	//target: ['esnext'], //default=esnext es2020
+}
 
-*/
+export default function(devFolder, buildOptions={}) {
+	console.log(devFolder, process.cwd())
+	const imp = getImports(process.cwd(), devFolder)
+	console.log(imp)
+	Promise.all(
+		Object.keys(imp).map(
+			outdir => esbuild.build(
+				Object.assign( { entryPoints: imp[outdir], outdir }, defaults, buildOptions )
+			)
+		)
+	).catch(e => process.exit(1))
+}
+
