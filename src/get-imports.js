@@ -11,9 +11,10 @@ export default function(root, devFolder) {
 			const {base, module, subpath} = match.groups,
 						tgt = base[0] === '/' ? Path.resolve(root, devFolder) : Path.resolve(Path.dirname(origin), base, devFolder),
 						imp = subpath[0]==='.' ? module : module+subpath
-			if (!found[tgt]) found[tgt] = [imp]
-			else if (!found[tgt].includes(imp)) found[tgt].push(imp)
+			if (!found[tgt]) found[tgt] = {}
+			found[tgt][imp.replace(/\..?js$/,'')] = imp
 		}
 	}
 	return found
 }
+
