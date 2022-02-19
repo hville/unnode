@@ -1,21 +1,19 @@
 import { readFileSync } from 'fs'
 import Path from 'path'
-import withFiles from './each-file.js'
 import RE from './re.js'
+import walk from 'ignore-walk'
 
 export default function(root, devFolder) {
 	const found = {},
 				pathRE = RE(devFolder)
-	withFiles(root, origin => {
+	for (const origin of walk.sync({ignoreFiles: [ '.gitignore', '.npmignore', '.ignore' ]})) {
 		for (const match of readFileSync(origin, 'utf8')?.matchAll(pathRE)) {
-			console.log(origin, match[0])
-			const path = match[0],
-						{module, subpath, base} = match.groups,
+			const {base, module, subpath} = match.groups,
 						tgt = base[0] === '/' ? Path.resolve(root, devFolder) : Path.resolve(Path.dirname(origin), base, devFolder),
-						src = subpath[0]==='.' ? module : module+subpath
-			if (!found[tgt]) found[tgt] = {}
-			found[tgt][src.replace(/\.[^./]+$/, '')] = src
+						imp = subpath[0]==='.' ? module : module+subpath
+			if (!found[tgt]) found[tgt] = [imp]
+			else if (!found[tgt].includes(imp)) found[tgt].push(imp)
 		}
-	})
+	}
 	return found
 }
