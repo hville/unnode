@@ -8,14 +8,15 @@
 ## Example
 
 ```javascript
-import a from '/web_modules/moduleName.js'       // import a from 'moduleName' in node
-import b from '/web_modules/moduleName/index.js' // import b from 'moduleName' in node
+// import bundled files from /webmodules and ./webmodules
+import a from '/webmodules/moduleName.js'       // import a from 'moduleName' in node
+import b from '/webmodules/moduleName/index.js' // import b from 'moduleName' in node
 import('./web_modules/moduleName/src/util.js')   // import ('moduleName/src/util.js') in node
 ```
 
 ```sh
 ##     target dir  chain of esbuild options
-unnode web_modules minify sourcemap=true #will bundle all references starting with web_modules
+unnode web_modules minify sourcemap=true  # will bundle all references starting with /webmodules
 ```
 
 ## Notes

@@ -25,7 +25,7 @@ const r = String.raw,
 			char = r`[a-zA-Z0-9\-_~!$&()*+]`,
 			base = r`(?<base>[./]+)`,
 			module = r`(?<module>(?:@${char}+\/)?${char}+)`,
-			subpath = r`(?<subpath>(?:${char}|\.|\/)*)`
+			subpath = r`(?<subpath>(?:${char}|\.|\/)*.js)`
 
 export default devPath => RegExp(
 	r`(?<!${char})${base}${devPath}\/${module}${subpath}`,

@@ -1,7 +1,7 @@
 {
   "name": "@hugov/unnode",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "bundle imported node_modules",
   "main": "index.js",
   "bin": {
@@ -11,7 +11,7 @@
     "test": "node test/re.tst.js"
   },
   "author": "hv",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
     "esbuild": "^0.14.21",
     "ignore-walk": "^4.0.1"
